@@ -49,4 +49,18 @@ describe 'cleaning fields' do
       expect(the_contract.notes).to eq 'will be stripped'
     end
   end
+
+  it 'will bark if you try to re-define a field twice' do
+    some_class = Class.new
+    some_class.send(:include, CautiousSweeper)
+    some_class.send(:attr_accessor, :name)
+    some_class.send(:sweep, :name, &:strip)
+
+    # Now the class is sweeping up name, awesome!
+    # What if we try to sweep it AGAIN?
+
+    expect {
+      some_class.send(:sweep, :name, &:upcase)
+    }.to raise_error
+  end
 end

@@ -2,6 +2,11 @@ module CautiousSweeper
   module ClassMethods
     def sweep(field_name, &sweeper)
       @swept_fields ||= []
+
+      if @swept_fields.include?(field_name)
+        raise "Don't sweep #{field_name} twice!"
+      end
+
       @swept_fields << field_name
 
       writer_method_name = "#{field_name}=".to_sym
