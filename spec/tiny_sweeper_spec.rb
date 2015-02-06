@@ -5,7 +5,7 @@ describe 'cleaning fields' do
   class Contract
     attr_accessor :name, :notes
 
-    include CautiousSweeper
+    include TinySweeper::Cautious
     sweep :notes, &:strip
     sweep(:name) { |n| n.upcase }
   end
@@ -52,7 +52,7 @@ describe 'cleaning fields' do
 
   it 'will bark if you try to re-define a field twice' do
     some_class = Class.new
-    some_class.send(:include, CautiousSweeper)
+    some_class.send(:include, TinySweeper::Cautious)
     some_class.send(:attr_accessor, :name)
     some_class.send(:sweep, :name, &:strip)
 
