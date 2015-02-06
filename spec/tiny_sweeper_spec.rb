@@ -63,4 +63,12 @@ describe 'cleaning fields' do
       some_class.send(:sweep, :name, &:upcase)
     }.to raise_error
   end
+
+  it "will bark if you sweep a method that doesn't exist" do
+    some_class = Class.new
+    some_class.send(:include, TinySweeper)
+    expect {
+      some_class.send(:sweep, :attribute, &:whatever)
+    }.to raise_error("There is no method named :attribute to sweep up!")
+  end
 end
