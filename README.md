@@ -82,3 +82,13 @@ or add to your Gemfile:
 ```
 gem 'tiny_sweeper'
 ```
+
+## Contributing
+
+Help is always appreciated!
+
+* Fork the repo.
+* Make your changes in a topic branch. Don't forget your specs!
+* Send a pull request.
+
+Please don't update the .gemspec or VERSION; we'll coordinate that when we release an update.
