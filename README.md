@@ -23,6 +23,14 @@ dessert.topping = ' ButTTERscotCH   '
 dessert.topping #=> 'butterscotch'. Tidy!
 ```
 
+If you have an object with lots of attributes that need cleaning, you can do that, too:
+
+```ruby
+dessert.sweep_up!
+# or:
+Sundae.sweep_up!(dessert)
+```
+
 ### Future Ideas
 
 Just spit-balling here...
