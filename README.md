@@ -26,6 +26,12 @@ dessert.topping = ' ButTTERscotCH   '
 dessert.topping #=> 'butterscotch'. Tidy!
 ```
 
+TinySweeper will not bother you about your nil values; they're your job to handle.
+
+```ruby
+Sundae.new.topping = nil  # No topping? TinySweeper won't sweep it.
+```
+
 If you have an object with lots of attributes that need cleaning, you can do that, too:
 
 ```ruby
