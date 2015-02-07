@@ -1,16 +1,14 @@
 module TinySweeper
   module ClassMethods
     def sweep(field_name, &sweeper)
-      stop_if_attribute_does_not_exist!(field_name)
       stop_if_we_have_seen_this_before!(field_name)
 
       writer_method_name = writer_method_name(field_name)
 
-      alias_method "original #{writer_method_name}", writer_method_name
-
-      define_method(writer_method_name) do |value|
-        clean_value = sweeper.call(value)
-        send("original #{writer_method_name}", clean_value)
+      overrides_module.module_eval do
+        define_method(writer_method_name) do |value|
+          super(sweeper.call(value))
+        end
       end
     end
 
@@ -22,10 +20,12 @@ module TinySweeper
 
     private
 
-    def stop_if_attribute_does_not_exist!(field_name)
-      unless method_defined?(writer_method_name(field_name))
-        raise "There is no method named #{field_name.inspect} to sweep up!"
-      end
+    def overrides_module
+      @overrides_module ||= begin
+                              mod = Module.new
+                              prepend mod
+                              mod
+                            end
     end
 
     def stop_if_we_have_seen_this_before!(field_name)

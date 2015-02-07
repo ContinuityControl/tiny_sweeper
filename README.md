@@ -70,11 +70,7 @@ Rails models are clearly the natural use-case for this. So it would make sense t
 
 ## How Does It Work?
 
-You include the `TinySweeper` module in your class, and define some sweep-up rules on your class' attributes. It overrides your method, and defines a new method that cleans its input according to the sweep-up rule, and then calls the original method with the clean value.
-
-"Isn't it better to generate a module for the new methods, and call `super`?"
-
-Sure, but if you do that, the module's method is called *after* the original one. We want to clean the input *before* it gets to your method.
+You include the `TinySweeper` module in your class, and define some sweep-up rules on your class' attributes. It prepends an anonymous module to your class, adds to it a method with the same name that cleans its input according to the sweep-up rule, and then passes the cleaned value to `super`.
 
 "Why not use `after_create` or `before_save` or `before_validate` callbacks?"
 

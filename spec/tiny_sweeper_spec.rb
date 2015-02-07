@@ -10,13 +10,6 @@ describe 'cleaning fields' do
     sweep(:name) { |n| n.upcase }
   end
 
-  it 'leaves some unfortunate method names, maybe?' do
-    contract = Contract.new
-    original_writers = contract.methods.grep(/^original /).sort
-    expect(original_writers).to eq([:"original name=", :"original notes="])
-    # NB: we're not saying this is GOOD, we're just noting it.
-  end
-
   it 'strips notes' do
     contract = Contract.new
     contract.notes = ' needs stripping '
@@ -62,14 +55,6 @@ describe 'cleaning fields' do
     expect {
       some_class.send(:sweep, :name, &:upcase)
     }.to raise_error
-  end
-
-  it "will bark if you sweep a method that doesn't exist" do
-    some_class = Class.new
-    some_class.send(:include, TinySweeper)
-    expect {
-      some_class.send(:sweep, :attribute, &:whatever)
-    }.to raise_error("There is no method named :attribute to sweep up!")
   end
 
   it "will let you sweep an inherited method" do
