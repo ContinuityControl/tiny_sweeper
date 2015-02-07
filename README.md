@@ -64,6 +64,10 @@ class Sundae
 end
 ```
 
+#### Other Ways to Sweep
+
+Rails models are clearly the natural use-case for this. So it would make sense to have an easy way to auto-clean up models in a table. We'll see.
+
 ## How Does It Work?
 
 You include the `TinySweeper` module in your class, and define some sweep-up rules on your class' attributes. It overrides your method, and defines a new method that cleans its input according to the sweep-up rule, and then calls the original method with the clean value.
