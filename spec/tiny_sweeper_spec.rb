@@ -22,6 +22,16 @@ describe 'cleaning fields' do
     expect(contract.name).to eq('GONNA SHOUT IT')
   end
 
+  it "lets nils through without complaint. nil is YOUR job to handle." do
+    contract = Contract.new
+    expect {
+      contract.name = nil
+      contract.notes = nil
+    }.to_not raise_error
+    expect(contract.name).to be_nil
+    expect(contract.notes).to be_nil
+  end
+
   describe 'sweeping up ALL the fields at once' do
     let(:the_contract) {
       Contract.new.tap do |c|

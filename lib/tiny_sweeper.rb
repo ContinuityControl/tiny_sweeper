@@ -3,11 +3,13 @@ module TinySweeper
     def sweep(field_name, &sweeper)
       stop_if_we_have_seen_this_before!(field_name)
 
-      writer_method_name = writer_method_name(field_name)
-
       overrides_module.module_eval do
-        define_method(writer_method_name) do |value|
-          super(sweeper.call(value))
+        define_method("#{field_name}=") do |value|
+          if value
+            super(sweeper.call(value))
+          else
+            super(value)
+          end
         end
       end
     end
@@ -36,10 +38,6 @@ module TinySweeper
       end
 
       @swept_fields << field_name
-    end
-
-    def writer_method_name(field_name)
-      "#{field_name}=".to_sym
     end
   end
 
