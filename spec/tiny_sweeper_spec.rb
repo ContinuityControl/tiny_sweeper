@@ -71,4 +71,19 @@ describe 'cleaning fields' do
       some_class.send(:sweep, :attribute, &:whatever)
     }.to raise_error("There is no method named :attribute to sweep up!")
   end
+
+  it "will let you sweep an inherited method" do
+    class BaseClass
+      attr_accessor :name
+    end
+    class SubClass < BaseClass
+      include TinySweeper
+    end
+
+    expect { SubClass.send(:sweep, :name, &:strip) }.to_not raise_error
+
+    child = SubClass.new
+    child.name = '  Monty  '
+    expect(child.name).to eq('Monty')
+  end
 end

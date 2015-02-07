@@ -23,7 +23,7 @@ module TinySweeper
     private
 
     def stop_if_attribute_does_not_exist!(field_name)
-      unless instance_methods.include?(writer_method_name(field_name))
+      unless instance_methods(true).include?(writer_method_name(field_name))
         raise "There is no method named #{field_name.inspect} to sweep up!"
       end
     end
