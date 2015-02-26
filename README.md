@@ -34,7 +34,7 @@ TinySweeper will not bother you about your nil values; they're your job to handl
 Sundae.new.topping = nil  # No topping? TinySweeper won't sweep it.
 ```
 
-If you have an object with lots of attributes that need cleaning, you can do that, too:
+If you have an object with lots of attributes that need cleaning (because, say, they were loaded from the database), you can do that, too:
 
 ```ruby
 dessert.sweep_up!
@@ -80,11 +80,7 @@ You include the `TinySweeper` module in your class, and define some sweep-up rul
 
 "Why not use `after_create` or `before_save` or `before_validate` callbacks?"
 
-That's one approach, and it's used by [nilify_blanks](https://github.com/rubiety/nilify_blanks), so it's clearly workable.
-
-But it means your data isn't cleaned until the callback runs; TinySweeper cleans your data as soon as it arrives.
-
-Also, it requires rails, so you can't use it outside of rails.
+That's one approach, and it's used by [nilify_blanks](https://github.com/rubiety/nilify_blanks), so it's clearly workable. But it means your data isn't cleaned until the callback runs; TinySweeper cleans your data as soon as it arrives. Also, it requires rails, so you can't use it outside of rails.
 
 ## Install It
 
