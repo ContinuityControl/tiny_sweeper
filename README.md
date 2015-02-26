@@ -72,7 +72,14 @@ end
 
 #### Other Ways to Sweep
 
-Rails models are clearly the natural use-case for this. So it would make sense to have an easy way to auto-clean up models in a table. We'll see.
+Rails models are clearly the natural use-case for this. So it would make sense to have an easy way to auto-clean up models in a table. We'll see. Right now, this works (though it's slow):
+
+```ruby
+MyModel.find_each do |m|
+  m.sweep_up!
+  m.save
+end
+```
 
 ## How Does It Work?
 
