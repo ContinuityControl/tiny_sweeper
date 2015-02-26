@@ -68,6 +68,7 @@ describe 'cleaning fields' do
   end
 
   it "will let you sweep an inherited method" do
+    # This just falls out of the design, but it's nice to note.
     class BaseClass
       attr_accessor :name
     end
