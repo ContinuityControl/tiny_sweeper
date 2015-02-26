@@ -1,14 +1,16 @@
 module TinySweeper
   module ClassMethods
-    def sweep(field_name, &sweeper)
-      stop_if_we_have_seen_this_before!(field_name)
+    def sweep(*field_names, &sweeper)
+      Array(field_names).each do |field_name|
+        stop_if_we_have_seen_this_before!(field_name)
 
-      overrides_module.module_eval do
-        define_method("#{field_name}=") do |value|
-          if value
-            super(sweeper.call(value))
-          else
-            super(value)
+        overrides_module.module_eval do
+          define_method("#{field_name}=") do |value|
+            if value
+              super(sweeper.call(value))
+            else
+              super(value)
+            end
           end
         end
       end

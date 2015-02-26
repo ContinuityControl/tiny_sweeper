@@ -83,3 +83,27 @@ describe 'cleaning fields' do
     expect(child.name).to eq('Monty')
   end
 end
+
+describe 'sweeping many fields at once, in the same way' do
+  class Address
+    attr_accessor :address1, :address2, :city, :state, :zip
+    include TinySweeper
+    sweep :address1, :address2, :city, :state, :zip, &:strip
+  end
+
+  it 'can do it' do
+    address = Address.new
+
+    address.address1 = ' 12 Elm St '
+    address.address2 = ' Apt B '
+    address.city     = ' New Haven '
+    address.state    = ' CT '
+    address.zip      = ' 06510 '
+
+    expect(address.address1).to eq('12 Elm St')
+    expect(address.address2).to eq('Apt B')
+    expect(address.city    ).to eq('New Haven')
+    expect(address.state   ).to eq('CT')
+    expect(address.zip     ).to eq('06510')
+  end
+end

@@ -11,10 +11,10 @@ It's a handy way to clean attributes on your Rails models, though it's independe
 
 ```ruby
 class Sundae
-  attr_accessor :topping
+  attr_accessor :ice_cream, :topping
 
   include TinySweeper
-  sweep(:topping) { |topping| topping.strip.downcase }
+  sweep(:ice_cream, :topping) { |flavor| flavor.strip.downcase }
 end
 ```
 
@@ -22,8 +22,10 @@ Now your Sundae toppings will be tidied up:
 
 ```ruby
 dessert = Sundae.new
+dessert.ice_cream = '   CHOCOlate  '
 dessert.topping = ' ButTTERscotCH   '
-dessert.topping #=> 'butterscotch'. Tidy!
+dessert.ice_cream #=> 'chocolate'. Tidy!
+dessert.topping   #=> 'butterscotch'. Tidy!
 ```
 
 TinySweeper will not bother you about your nil values; they're your job to handle.
@@ -43,8 +45,6 @@ Sundae.sweep_up!(dessert)
 ### Future Ideas
 
 Just spit-balling here...
-
-It'd be nice to define sweep-ups for multiple fields.
 
 If you often sweep up fields in the same way - say, squishing and nilifying blanks - it'd be nice to bundle that up in some way, so you don't have to repeat yourself. Something like this might be nice:
 
