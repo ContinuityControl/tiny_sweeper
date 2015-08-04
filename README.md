@@ -2,6 +2,8 @@
 
 TinySweeper keeps your objects tidy!
 
+![Hold me closer, Tiny Sweeper](https://github.com/ContinuityControl/tiny_sweeper/raw/master/tiny-sweeper.png)
+
 It's a handy way to clean attributes on your Rails models, though it's independent of Rails, and can be used in any Ruby project. It gives you a light-weigt way to override your methods and declare how their inputs should be cleaned.
 
 [![Build Status](https://travis-ci.org/ContinuityControl/tiny_sweeper.png?branch=master)](https://travis-ci.org/ContinuityControl/tiny_sweeper)
