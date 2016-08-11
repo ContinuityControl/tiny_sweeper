@@ -1,0 +1,6 @@
+tiny_sweeper (0.0.5) stable; urgency=low
+
+  * First public stable release
+  * Define sweeping rules with `sweep`, which takes multiple field names, and
+    a block
+  * Sweep all attributes of a class with `sweep_up!`
