@@ -8,6 +8,7 @@ It's a handy way to clean attributes on your Rails models, though it's independe
 
 [![Build Status](https://travis-ci.org/ContinuityControl/tiny_sweeper.png?branch=master)](https://travis-ci.org/ContinuityControl/tiny_sweeper)
 [![Code Climate](https://codeclimate.com/github/ContinuityControl/tiny_sweeper/badges/gpa.svg)](https://codeclimate.com/github/ContinuityControl/tiny_sweeper)
+[![Test Coverage](https://codeclimate.com/github/ContinuityControl/tiny_sweeper/badges/coverage.svg)](https://codeclimate.com/github/ContinuityControl/tiny_sweeper/coverage)
 
 ## How Do I Use It?
 
