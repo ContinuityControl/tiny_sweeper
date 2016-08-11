@@ -1,3 +1,10 @@
+tiny_sweeper (1.0.0) stable; urgency=low
+
+  * Change `sweep` to only take one attribute name, followed by zero or more
+    "brooms" (symbols that name a pre-configured way to sweep a value), and an
+    optional sweeping block.
+  * Add `TinySweeper::Brooms.add(name, &block)` for registering custom brooms.
+
 tiny_sweeper (0.0.5) stable; urgency=low
 
   * First public stable release
