@@ -84,6 +84,27 @@ dessert.ice_cream #=> nil
 end
 ```
 
+TinySweeper currently only knows a few tricks...
+
+* `blanks_to_nil`: turn empty strings into nils
+* `strip`: just like `String#strip`: removes trailing and leading whitespace
+* `dumb_quotes`: replace [Smart Quotes](https://en.wikipedia.org/wiki/Quotation_marks_in_English) with their simpler siblings
+
+...but you can teach it new ones:
+
+```ruby
+TinySweeper::Brooms.add(:strip_html) { |value| Nokogiri::HTML(value).text }
+```
+
+And you can always combine the built-in tricks with a block:
+
+```ruby
+class Sundae
+  ...
+  sweep(:topping, :strip, :dumb_quotes) { |topping| topping.downcase }
+end
+```
+
 If you have an object with lots of attributes that need cleaning (because, say, they were loaded from the database), you can do that, too:
 
 ```ruby
