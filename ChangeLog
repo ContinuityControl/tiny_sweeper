@@ -1,3 +1,9 @@
+tiny_sweeper (1.0.1) stable; urgency=low
+
+  * Fix gemspec warnings:
+    * Properly specify license as "Apache-2.0"
+    * Provide minimum versions for rspec and rake dependencies
+
 tiny_sweeper (1.0.0) stable; urgency=low
 
   * Change `sweep` to only take one attribute name, followed by zero or more
