@@ -1,6 +1,3 @@
-require 'spec_helper'
-require 'tiny_sweeper'
-
 RSpec.describe 'cleaning fields' do
   class Contract
     attr_accessor :name, :notes
@@ -84,6 +81,86 @@ RSpec.describe 'defining the same sweep rule on many fields at once' do
     expect(address.city    ).to eq('New Haven')
     expect(address.state   ).to eq('CT')
     expect(address.zip     ).to eq('06510')
+  end
+end
+
+RSpec.describe 'defining sweep rules with built-in brooms' do
+  describe 'the simple case' do
+    class Sundae
+      attr_accessor :ice_cream
+      include TinySweeper
+      sweep :ice_cream, :blanks_to_nil
+    end
+
+    it 'can do it' do
+      sundae = Sundae.new
+      sundae.ice_cream = ''
+      expect(sundae.ice_cream).to be_nil
+    end
+  end
+
+  describe 'using multiple brooms' do
+    it 'calls them all, left-to-right' do
+      class Sundae
+        attr_accessor :topping
+        include TinySweeper
+        sweep :topping, :strip, :blanks_to_nil
+      end
+      sundae = Sundae.new
+      sundae.topping = '            '
+      expect(sundae.topping).to be_nil
+    end
+  end
+
+  describe 'using multiple brooms, and a block at the end' do
+    it 'calls the brooms, left-to-right, and then the block' do
+      class Sundae
+        attr_accessor :nuts
+        include TinySweeper
+        # NB: your block could get passed a nil value.
+        sweep(:nuts, :strip, :blanks_to_nil) { |v| v && v.upcase }
+      end
+      sundae = Sundae.new
+      sundae.nuts = '  '
+      expect(sundae.nuts).to be_nil
+      sundae.nuts = '  walnuts  '
+      expect(sundae.nuts).to eq('WALNUTS')
+    end
+  end
+
+  context "when you name a broom that doesn't exist" do
+    it "warns when you define the rule, and raises when you sweep a value" do
+      class Milkshake
+        attr_accessor :flavor
+        include TinySweeper
+      end
+
+      expect {
+        class Milkshake
+          sweep :flavor, :make_more_delicious
+        end
+      }.to output(/TinySweeper doesn't have.*make_more_delicious/).to_stderr
+
+      milkshake = Milkshake.new
+      expect {
+        milkshake.flavor = 'cherries jubilee'
+      }.to raise_exception(TinySweeper::MissingBroomException)
+    end
+  end
+
+  describe 'adding a custom broom' do
+    it 'lets the broom be used' do
+      TinySweeper::Brooms.add(:sanitize_sizes) { |v| v.downcase[0] }
+      class Milkshake
+        attr_accessor :size
+        include TinySweeper
+        sweep :size, :sanitize_sizes
+      end
+
+      milkshake = Milkshake.new
+      milkshake.size = 'LARGE'
+      expect(milkshake.size).to eq('l')
+    end
   end
 end
 

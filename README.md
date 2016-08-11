@@ -54,6 +54,36 @@ dessert.topping #=> 'butterscotch'
 dessert.nuts #=> 'crushed peanuts'
 ```
 
+TinySweeper already knows a few sweeping tricks, and you can ask for them by name:
+
+```ruby
+class Sundae
+  attr_accessor :ice_cream
+
+  include TinySweeper
+  sweep :ice_cream, :blanks_to_nil
+end
+
+dessert = Sundae.new
+dessert.ice_cream = ""
+dessert.ice_cream #=> nil
+```
+
+You can use as many as you need, and TinySweeper will apply them all, left-to-right:
+
+```ruby
+class Sundae
+  attr_accessor :ice_cream
+
+  include TinySweeper
+  sweep :ice_cream, :strip, :blanks_to_nil
+
+dessert = Sundae.new
+dessert.ice_cream = "   "
+dessert.ice_cream #=> nil
+end
+```
+
 If you have an object with lots of attributes that need cleaning (because, say, they were loaded from the database), you can do that, too:
 
 ```ruby
@@ -63,32 +93,6 @@ Sundae.sweep_up!(dessert)
 ```
 
 ### Future Ideas
-
-Just spit-balling here...
-
-If you often sweep up fields in the same way - say, squishing and nilifying blanks - it'd be nice to bundle that up in some way, so you don't have to repeat yourself. Something like this might be nice:
-
-```ruby
-# in config/initializers/tiny_sweeper.rb, or similar:
-TinySweeper.sweep_style(:squish_and_nil_blanks) { |value|
-  ...
-}
-
-class Sundae
-  sweep :topping, :squish_and_nil_blanks
-end
-```
-
-If TinySweeper doesn't know the sweeping technique you asked for, it would send it to the value in the typical symbol-to-proc fashion:
-
-```ruby
-class Sundae
-  # This:
-  sweep :topping, :strip
-  # ...would be the same as this:
-  sweep :topping { |t| t.strip }
-end
-```
 
 #### Other Ways to Sweep
 
