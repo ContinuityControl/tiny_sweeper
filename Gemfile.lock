@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tiny_sweeper (0.0.5)
+    tiny_sweeper (1.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -37,8 +37,8 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.5)
   codeclimate-test-reporter
-  rake
-  rspec
+  rake (~> 10.0)
+  rspec (~> 3.0)
   tiny_sweeper!
 
 BUNDLED WITH
