@@ -21,4 +21,18 @@ RSpec.describe 'the brooms in the BroomCloset' do
       expect(TinySweeper::BroomCloset.strip(nil)).to be_nil
     end
   end
+
+  describe 'dumb_quotes' do
+    it 'replaces smart quotes with dumb quotes in strings' do
+      expect(TinySweeper::BroomCloset.dumb_quotes("abc‘")).to eq(%q{abc'})
+      expect(TinySweeper::BroomCloset.dumb_quotes("abc’")).to eq(%q{abc'})
+      expect(TinySweeper::BroomCloset.dumb_quotes("abcʼ")).to eq(%q{abc'})
+      expect(TinySweeper::BroomCloset.dumb_quotes("abc“")).to eq(%q{abc"})
+      expect(TinySweeper::BroomCloset.dumb_quotes("abc”")).to eq(%q{abc"})
+      expect(TinySweeper::BroomCloset.dumb_quotes("abcˮ")).to eq(%q{abc"})
+    end
+    it 'leaves nil values alone' do
+      expect(TinySweeper::BroomCloset.dumb_quotes(nil)).to be_nil
+    end
+  end
 end

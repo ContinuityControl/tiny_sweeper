@@ -11,6 +11,25 @@ module TinySweeper
     def self.strip(value)
       value && value.strip
     end
+
+    def self.dumb_quotes(value)
+      return nil if value.nil?
+
+      # Stolen shamelessly from
+      # https://github.com/yob/dumb_quotes/blob/master/lib/dumb_quotes/ar_extend.rb:
+
+      # single quotes
+      value = value.gsub("\xE2\x80\x98","'") # U+2018
+      value = value.gsub("\xE2\x80\x99","'") # U+2019
+      value = value.gsub("\xCA\xBC","'")     # U+02BC
+
+      #  double quotes
+      value = value.gsub("\xE2\x80\x9C",'"') # U+201C
+      value = value.gsub("\xE2\x80\x9D",'"') # U+201D
+      value = value.gsub("\xCB\xAE",'"')     # U+02EE
+
+      value
+    end
   end
 
   BroomCloset.methods.each do |broom|
