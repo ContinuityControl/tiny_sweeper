@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
     how their inputs should be cleaned.
   ".strip.gsub(/^\s*/, '')
   s.homepage    = 'https://github.com/ContinuityControl/tiny_sweeper'
-  s.license     = 'ASL2'
+  s.license     = 'Apache-2.0'
 
   s.authors     = ["Dan Bernier"]
   s.email       = ['dbernier@continuity.net']
