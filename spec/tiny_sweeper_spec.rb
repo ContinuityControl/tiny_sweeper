@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'tiny_sweeper'
 
-describe 'cleaning fields' do
+RSpec.describe 'cleaning fields' do
   class Contract
     attr_accessor :name, :notes
 
@@ -84,7 +84,7 @@ describe 'cleaning fields' do
   end
 end
 
-describe 'sweeping many fields at once, in the same way' do
+RSpec.describe 'sweeping many fields at once, in the same way' do
   class Address
     attr_accessor :address1, :address2, :city, :state, :zip
     include TinySweeper
