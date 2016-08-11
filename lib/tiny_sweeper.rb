@@ -51,6 +51,3 @@ module TinySweeper
     self.class.sweep_up!(self)
   end
 end
-
-# Do it on all fields, by default? Or be explicit?
-# TODO: add EagerSweeper, which loops over attributes. But how would it sweep?
