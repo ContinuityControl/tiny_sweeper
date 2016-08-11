@@ -64,7 +64,7 @@ describe 'cleaning fields' do
 
     expect {
       some_class.send(:sweep, :name, &:upcase)
-    }.to raise_error
+    }.to raise_error("Don't sweep name twice!")
   end
 
   it "will let you sweep an inherited method" do
