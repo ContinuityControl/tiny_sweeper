@@ -67,7 +67,7 @@ RSpec.describe 'defining the same sweep rule on many fields at once' do
   class Address
     attr_accessor :address1, :address2, :city, :state, :zip
     include TinySweeper
-    sweep :address1, :address2, :city, :state, :zip, &:strip
+    sweep [:address1, :address2, :city, :state, :zip], &:strip
   end
 
   it 'can do it' do

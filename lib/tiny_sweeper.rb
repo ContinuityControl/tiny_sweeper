@@ -1,6 +1,6 @@
 module TinySweeper
   module ClassMethods
-    def sweep(*field_names, &sweeper)
+    def sweep(field_names, &sweeper)
       Array(field_names).each do |field_name|
         stop_if_we_have_seen_this_before!(field_name)
 

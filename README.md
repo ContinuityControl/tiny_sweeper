@@ -14,10 +14,10 @@ It's a handy way to clean attributes on your Rails models, though it's independe
 
 ```ruby
 class Sundae
-  attr_accessor :ice_cream, :topping
+  attr_accessor :ice_cream
 
   include TinySweeper
-  sweep(:ice_cream, :topping) { |flavor| flavor.strip.downcase }
+  sweep(:ice_cream) { |flavor| flavor.strip.downcase }
 end
 ```
 
@@ -26,15 +26,32 @@ Now your Sundae toppings will be tidied up:
 ```ruby
 dessert = Sundae.new
 dessert.ice_cream = '   CHOCOlate  '
-dessert.topping = ' ButTTERscotCH   '
 dessert.ice_cream #=> 'chocolate'. Tidy!
-dessert.topping   #=> 'butterscotch'. Tidy!
 ```
 
 TinySweeper will not bother you about your nil values; they're your job to handle.
 
 ```ruby
 Sundae.new.topping = nil  # No topping? TinySweeper won't sweep it.
+```
+
+If lots of attributes need to be swept the same way, you can pass an array of field names:
+
+```ruby
+class Sundae
+  attr_accessor :ice_cream, :topping, :nuts
+
+  include TinySweeper
+  sweep [:ice_cream, :topping, :nuts] { |item| item.strip.downcase }
+end
+
+dessert = Sundae.new
+dessert.ice_cream = '   CHOCOlate  '
+dessert.topping = ' ButTTERscotCH   '
+dessert.nuts = '  CRUSHED peaNUtS  '
+dessert.ice_cream #=> 'chocolate'
+dessert.topping #=> 'butterscotch'
+dessert.nuts #=> 'crushed peanuts'
 ```
 
 If you have an object with lots of attributes that need cleaning (because, say, they were loaded from the database), you can do that, too:
