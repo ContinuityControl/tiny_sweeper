@@ -32,27 +32,6 @@ RSpec.describe 'cleaning fields' do
     expect(contract.notes).to be_nil
   end
 
-  describe 'sweeping up ALL the fields at once' do
-    let(:the_contract) {
-      Contract.new.tap do |c|
-        c.name = '  will be upcased  '
-        c.notes = '  will be stripped  '
-      end
-    }
-
-    it 'can clean itself' do
-      the_contract.sweep_up!
-      expect(the_contract.name).to eq '  WILL BE UPCASED  '
-      expect(the_contract.notes).to eq 'will be stripped'
-    end
-
-    it 'can be cleaned from the class' do
-      Contract.sweep_up!(the_contract)
-      expect(the_contract.name).to eq '  WILL BE UPCASED  '
-      expect(the_contract.notes).to eq 'will be stripped'
-    end
-  end
-
   it 'will bark if you try to re-define a field twice' do
     some_class = Class.new
     some_class.send(:include, TinySweeper)
@@ -84,7 +63,7 @@ RSpec.describe 'cleaning fields' do
   end
 end
 
-RSpec.describe 'sweeping many fields at once, in the same way' do
+RSpec.describe 'defining the same sweep rule on many fields at once' do
   class Address
     attr_accessor :address1, :address2, :city, :state, :zip
     include TinySweeper
@@ -105,5 +84,26 @@ RSpec.describe 'sweeping many fields at once, in the same way' do
     expect(address.city    ).to eq('New Haven')
     expect(address.state   ).to eq('CT')
     expect(address.zip     ).to eq('06510')
+  end
+end
+
+RSpec.describe 'Using #sweep_up! to sweep up all the fields at once' do
+  let(:the_contract) {
+    Contract.new.tap do |c|
+      c.name = '  will be upcased  '
+      c.notes = '  will be stripped  '
+    end
+  }
+
+  it 'can clean itself' do
+    the_contract.sweep_up!
+    expect(the_contract.name).to eq '  WILL BE UPCASED  '
+    expect(the_contract.notes).to eq 'will be stripped'
+  end
+
+  it 'can be cleaned from the class' do
+    Contract.sweep_up!(the_contract)
+    expect(the_contract.name).to eq '  WILL BE UPCASED  '
+    expect(the_contract.notes).to eq 'will be stripped'
   end
 end
