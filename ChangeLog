@@ -1,3 +1,7 @@
+tiny_sweeper (1.1.0) stable; urgency=low
+
+  * Change strip to remove UTF-8 NBSP
+
 tiny_sweeper (1.0.1) stable; urgency=low
 
   * Fix gemspec warnings:
