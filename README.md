@@ -89,6 +89,7 @@ TinySweeper currently only knows a few tricks...
 * `blanks_to_nil`: turn empty strings into nils
 * `strip`: just like `String#strip`: removes trailing and leading whitespace
 * `dumb_quotes`: replace [Smart Quotes](https://en.wikipedia.org/wiki/Quotation_marks_in_English) with their simpler siblings
+* `nbsp`: replace [non breaking space characters](https://www.w3.org/MarkUp/HTMLPlus/htmlplus_13.html) with an empty string
 
 ...but you can teach it new ones:
 
