@@ -1,10 +1,11 @@
 RSpec.describe 'cleaning fields' do
   class Contract
-    attr_accessor :name, :notes
+    attr_accessor :name, :notes, :addendum
 
     include TinySweeper
     sweep :notes, &:strip
     sweep(:name) { |n| n.upcase }
+    sweep :addendum, :nbsp
   end
 
   it 'strips notes' do
@@ -17,6 +18,12 @@ RSpec.describe 'cleaning fields' do
     contract = Contract.new
     contract.name = 'gonna shout it'
     expect(contract.name).to eq('GONNA SHOUT IT')
+  end
+
+  it 'removes nbsps from the addendum' do
+    contract = Contract.new
+    contract.addendum = "foo\u00A0bar"
+    expect(contract.addendum).to eq('foobar')
   end
 
   it "lets nils through without complaint. nil is YOUR job to handle." do

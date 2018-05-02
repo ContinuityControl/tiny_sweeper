@@ -22,6 +22,12 @@ RSpec.describe 'the brooms in the BroomCloset' do
     end
   end
 
+  describe 'nbsp' do
+    it 'handles nbsp' do
+      expect(TinySweeper::BroomCloset.nbsp("foo\u00A0bar")).to eq('foobar')
+    end
+  end
+
   describe 'dumb_quotes' do
     it 'replaces smart quotes with dumb quotes in strings' do
       expect(TinySweeper::BroomCloset.dumb_quotes("abc‘")).to eq(%q{abc'})

@@ -30,6 +30,10 @@ module TinySweeper
 
       value
     end
+
+    def self.nbsp(value)
+      value && value.gsub("\u00A0", "")
+    end
   end
 
   BroomCloset.methods.each do |broom|
