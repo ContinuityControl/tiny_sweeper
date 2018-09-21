@@ -20,8 +20,11 @@ RSpec.describe 'the brooms in the BroomCloset' do
     it 'leaves nil values alone' do
       expect(TinySweeper::BroomCloset.strip(nil)).to be_nil
     end
+  end
+
+  describe 'nbsp' do
     it 'handles nbsp' do
-      expect(TinySweeper::BroomCloset.strip("foo\u00A0bar")).to eq('foobar')
+      expect(TinySweeper::BroomCloset.nbsp("foo\u00A0bar")).to eq('foobar')
     end
   end
 

@@ -9,7 +9,7 @@ module TinySweeper
     end
 
     def self.strip(value)
-      value && value.strip.gsub("\u00A0", "")
+      value && value.strip
     end
 
     def self.dumb_quotes(value)
@@ -29,6 +29,10 @@ module TinySweeper
       value = value.gsub("\xCB\xAE",'"')     # U+02EE
 
       value
+    end
+
+    def self.nbsp(value)
+      value && value.gsub("\u00A0", "")
     end
   end
 
